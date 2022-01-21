@@ -1,9 +1,24 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Classes_and_Objects
 {
     class Program
     {
+
+        class Transaction
+        {
+            private Int64 Amount;
+            private DateTime Date;
+            private string Note;
+
+            public Transaction(Int64 amount, DateTime date, string note)
+            {
+                Amount = amount;
+                Date = date;
+                Note = note;
+            }
+        }
 
         class BankAccount
         {
@@ -16,6 +31,9 @@ namespace Classes_and_Objects
             private string Country;
             private UInt64 Money;
             private UInt64 Accountno;
+
+            private List<Transaction> Transactions = new();
+
             public BankAccount(string firstname, string lastname, UInt16 houseno, string streetname, string city, string postcode, string country, UInt64 initialdeposit, UInt64 accountno)
             {
                 Name = firstname;
@@ -28,34 +46,26 @@ namespace Classes_and_Objects
                 Money = initialdeposit;
                 Accountno = accountno;
             }
-            public void Deposit(UInt64 amount, UInt64 accountno)
+            private int Deposit(UInt64 amount)
             {
-                if (accountno == Accountno)
-                {
-                    Money += amount;
-                    Console.WriteLine($"Money of {0} successfully deposited in account {1}. Total value of account: {2}.", amount, Accountno, Money);
-                }
-                else
-                {
-                    Console.WriteLine($"Account Number inputted and Account Number of selected account do not match.");
-                }
-
+                Money += amount;
+                Console.WriteLine($"Money of {0} successfully deposited in account. Total value of account: {2}.", amount, Money);
+                return 0;
             }
-            public void Withdraw(UInt64 amount, UInt64 accountno)
+            private int Withdraw(UInt64 amount)
             {
-                if (accountno == Accountno && Money >= amount)
+                if (Money >= amount)
                 {
                     Money -= amount;
-                    Console.WriteLine($"Money of {0} successfully withdrawn from account {1}. Total value of account: {2}.", amount, Accountno, Money);
-                }
-                else if (accountno == Accountno)
-                {
-                    Console.WriteLine($"Account {0} does not have enough money to withdraw selected amount of {1}. Total value of account: {2}", Accountno, amount, Money);
+                    Console.WriteLine($"Money of {0} successfully withdrawn from account. Total value of account: {2}.", amount, Money);
+                    return 0;
                 }
                 else
                 {
-                    Console.WriteLine($"Account Number inputted and Account Number of selected account do not match.");
+                    Console.WriteLine($"Account does not have enough money to withdraw selected amount of {1}. Total value of account: {2}", amount, Money);
+                    return 1;
                 }
+                
             }
 
             public void PrintInformation(UInt64 accountno)
@@ -69,7 +79,26 @@ namespace Classes_and_Objects
                     Console.WriteLine($"Account Number inputted and Account Number of selected account do not match.");
                 }
             }
+
+            public void MakeTransaction(Int64 amount, DateTime date, string note)
+            {
+                int test = 0;
+                if(amount > 0)
+                {
+                    test = Deposit(Convert.ToUInt64(amount));
+                }
+                else
+                {
+                    test = Withdraw(Convert.ToUInt64(amount*-1));
+                }
+                if(test == 0)
+                {
+                    Transactions.Add(new Transaction(amount, date, note));
+                }
+            }
         }
+
+        
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
