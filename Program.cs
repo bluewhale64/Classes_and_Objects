@@ -98,6 +98,58 @@ namespace Classes_and_Objects
             }
         }
 
+        class MyStack
+        {
+            List<int> stack = new();
+            public MyStack(int item)
+            {
+                stack.Add(item);
+            }
+
+            public void Enqueue(int item)
+            {
+                stack.Add(item);
+            }
+
+            public void Dequeue(int n)
+            {
+                for(int i = 0; i < n; i++)
+                {
+                    if (stack.Count > 0)
+                    {
+                        stack.RemoveAt(stack.Count - 1);
+                    }
+                }
+            }
+
+            public int Peek()
+            {
+                if (stack.Count > 0)
+                {
+                    return (stack[stack.Count - 1]);
+                }
+                else
+                {
+                    return (0);
+                }
+            }
+
+            public int Pop()
+            {
+                if (stack.Count > 0)
+                {
+                    int returner = stack[stack.Count - 1];
+                    stack.RemoveAt(stack.Count - 1);
+                    return (returner);
+                }
+                else
+                {
+                    return (0);
+                }
+            }
+
+        }
+
         
         static void Main(string[] args)
         {
