@@ -106,12 +106,12 @@ namespace Classes_and_Objects
                 stack.Add(item);
             }
 
-            public void Enqueue(int item)
+            public void Push(int item)
             {
                 stack.Add(item);
             }
 
-            public void Dequeue(int n)
+            public void Remove(int n)
             {
                 for(int i = 0; i < n; i++)
                 {
@@ -150,7 +150,59 @@ namespace Classes_and_Objects
 
         }
 
-        
+        class MyQueue
+        {
+            List<int> queue = new();
+            public MyQueue(int item)
+            {
+                queue.Add(item);
+            }
+
+            public void Enqueue(int item)
+            {
+                queue.Insert(0, item);
+            }
+
+            public void Remove(int n)
+            {
+                for (int i = 0; i < n; i++)
+                {
+                    if (queue.Count > 0)
+                    {
+                        queue.RemoveAt(queue.Count - 1);
+                    }
+                }
+            }
+
+            public int Peek()
+            {
+                if (queue.Count > 0)
+                {
+                    return (queue[queue.Count - 1]);
+                }
+                else
+                {
+                    return (0);
+                }
+            }
+
+            public int Dequeue()
+            {
+                if (queue.Count > 0)
+                {
+                    int returner = queue[queue.Count - 1];
+                    queue.RemoveAt(queue.Count - 1);
+                    return (returner);
+                }
+                else
+                {
+                    return (0);
+                }
+            }
+
+        }
+
+
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
