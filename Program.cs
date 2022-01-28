@@ -202,6 +202,15 @@ namespace Classes_and_Objects
 
         }
 
+        class StudentAccount : BankAccount
+        {
+            private string University;
+            public StudentAccount(string uni, string firstname, string lastname, UInt16 houseno, string streetname, string city, string postcode, string country, UInt64 initialdeposit, UInt64 accountno) : base(firstname, lastname, houseno, streetname, city, postcode, country, initialdeposit, accountno)
+            {
+                University = uni;
+            }
+        }
+
 
         static void Main(string[] args)
         {
