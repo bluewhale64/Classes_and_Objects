@@ -29,7 +29,7 @@ namespace Classes_and_Objects
             private string City;
             private string Postcode;
             private string Country;
-            private UInt64 Money;
+            public UInt64 Money;
             private UInt64 Accountno;
 
             private List<Transaction> Transactions = new();
@@ -208,6 +208,19 @@ namespace Classes_and_Objects
             public StudentAccount(string uni, string firstname, string lastname, UInt16 houseno, string streetname, string city, string postcode, string country, UInt64 initialdeposit, UInt64 accountno) : base(firstname, lastname, houseno, streetname, city, postcode, country, initialdeposit, accountno)
             {
                 University = uni;
+            }
+        }
+
+        class InvestmentAccount : BankAccount
+        {
+            private UInt64 Interest;
+            public InvestmentAccount(UInt64 interest, string firstname, string lastname, UInt16 houseno, string streetname, string city, string postcode, string country, UInt64 initialdeposit, UInt64 accountno) : base(firstname, lastname, houseno, streetname, city, postcode, country, initialdeposit, accountno)
+            {
+                Interest = interest;
+            }
+            private void ApplyInterest()
+            {
+                Money = Money + (Money * Interest / 100);
             }
         }
 
