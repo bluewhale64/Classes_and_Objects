@@ -46,13 +46,13 @@ namespace Classes_and_Objects
                 Money = initialdeposit;
                 Accountno = accountno;
             }
-            private int Deposit(UInt64 amount)
+            public int Deposit(UInt64 amount)
             {
                 Money += amount;
                 Console.WriteLine($"Money of {0} successfully deposited in account. Total value of account: {2}.", amount, Money);
                 return 0;
             }
-            private int Withdraw(UInt64 amount)
+            public virtual int Withdraw(UInt64 amount)
             {
                 if (Money >= amount)
                 {
@@ -222,6 +222,38 @@ namespace Classes_and_Objects
             {
                 Money = Money + (Money * Interest / 100);
             }
+        }
+
+        class LineOfCredit : BankAccount
+        {
+            private UInt64 Limit;
+            public LineOfCredit(UInt64 maxwithdrawl, string firstname, string lastname, UInt16 houseno, string streetname, string city, string postcode, string country, UInt64 initialdeposit, UInt64 accountno) : base(firstname, lastname, houseno, streetname, city, postcode, country, initialdeposit, accountno)
+            {
+                Limit = maxwithdrawl;
+            }
+
+            public override int Withdraw(UInt64 amount)
+            {
+                if (Money >= amount && amount <= Limit)
+                {
+                    Money -= amount;
+                    Console.WriteLine($"Money of {0} successfully withdrawn from account. Total value of account: {2}.", amount, Money);
+                    return 0;
+                }
+                else if (Money >= amount)
+                {
+                    Console.WriteLine($"Account requested is higher than maximum withdrawl limit of {1}. Total value of account: {2}", Limit, Money);
+                    return 1;
+                }
+                else
+                {
+                    Console.WriteLine($"Account does not have enough money to withdraw selected amount of {1}. Total value of account: {2}", amount, Money);
+                    return 1;
+                }
+
+            }
+
+
         }
 
 
